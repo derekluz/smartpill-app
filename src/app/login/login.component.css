@@ -1,0 +1,36 @@
+.login-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(rgb(34, 37, 39), rgb(56, 62, 65));
+    color: white; 
+    width: 100vw;
+    height: 100vh;
+}
+.login-field {
+    width: calc(100% - 60px);
+    margin: 20px auto;
+}
+.login-button {
+    width: calc(100% - 60px);
+    margin: 20px auto;
+    background-color: #fc3952;
+    border-radius: 5px;
+    font-size: 1.0em;
+}
+.mat-input-element{
+    height: 7vh;
+    border-radius: 5px;
+    text-align: center;
+}
+.login-logo {
+    height: 30vw;
+    width: 30vw;
+}
+.login-logo img {
+    height: 70%;
+}
+.login-app-name {
+    font-size: 2em;
+}
