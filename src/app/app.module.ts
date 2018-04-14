@@ -9,12 +9,25 @@ import { CookieModule, CookieService, CookieOptions } from 'ngx-cookie';
 import { PushNotificationsService, PushNotification } from 'angular2-notifications';
 import { TextMaskModule } from 'angular2-text-mask';
 import { ToasterModule, ToasterService } from 'angular2-toaster';
+import { SwiperModule, SwiperConfigInterface, SWIPER_CONFIG } from 'ngx-swiper-wrapper';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
+import { ScheduleComponent } from './schedule/schedule.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginBackendService } from './login/login-backend.service';
+import { ScheduleBackendService } from './schedule/schedule-backend.service';
 import { PushNotificationService, SessionService } from './services/services';
+
+const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
+  direction: 'horizontal',
+  slidesPerView: 'auto'
+};
+
+const SwiperProvider = {
+  provide: SWIPER_CONFIG,
+  useValue: DEFAULT_SWIPER_CONFIG
+}
 
 import {
   MatAutocompleteModule,
@@ -50,7 +63,8 @@ import {
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    ScheduleComponent
   ],
   imports: [
     AppRoutingModule,
@@ -90,14 +104,17 @@ import {
     MatTooltipModule,
     MatNativeDateModule,
     TextMaskModule,
-    ToasterModule
+    ToasterModule,
+    SwiperModule
   ],
   providers: [
     CookieService,
     LoginBackendService,
     PushNotificationService,
     PushNotificationsService,
+    ScheduleBackendService,
     SessionService,
+    SwiperProvider,
     ToasterService
   ],
   bootstrap: [AppComponent]

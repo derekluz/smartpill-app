@@ -1,0 +1,61 @@
+.schedule-content {
+    background-color: white;
+    height: 100vh;
+    width: 100vw;
+}
+mat-toolbar {
+    background-color: #e74c3c;
+    text-align: center;
+    height: 150px;
+    margin-bottom: -70px;
+}
+.schedule-title {
+    margin-top: -40px;
+    color: white;
+}
+.schedule-cards-container {
+    height: calc(100vh - 80px);
+    width: 100vw;
+    overflow: auto;
+}
+mat-card {
+    height: 100px;
+    width: 80%;
+    margin: 10px auto;
+    background-color: white;
+    -webkit-box-shadow: 7px 10px 12px -1px rgba(0,0,0,0.64);
+    -moz-box-shadow: 7px 10px 12px -1px rgba(0,0,0,0.64);
+    box-shadow: 7px 10px 12px -1px rgba(0,0,0,0.64);
+}
+.schedule-button {
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+.edit-button {
+    border-radius: 100%;
+    background-color: #2980b9;
+}
+.edit-button img{
+    height: 50%;
+}
+.add-button img{
+    height: 70%;
+}
+.medicine-card-content {
+    height: 100%;
+}
+.medicine-card-content img {
+    height: 50%;
+    margin-right: 30px;
+}
+.medicine-name {
+    color: #e74c3c;
+    font-size: 1.2em;
+}
+.medicine-time {
+    color: #2980b9;
+    font-size: 1em;
+}

@@ -1,10 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Toast, ToasterContainerComponent, ToasterService, ToasterConfig } from 'angular2-toaster';
 import { UUID } from 'angular2-uuid';
 import { LoginBackendService } from './login-backend.service';
 import { PushNotificationService, SessionService } from '../services/services';
+import {
+  SwiperComponent, SwiperDirective, SwiperConfigInterface,
+  SwiperScrollbarInterface, SwiperPaginationInterface
+} from 'ngx-swiper-wrapper';
 
 @Component({
   selector: 'login',
@@ -13,6 +17,7 @@ import { PushNotificationService, SessionService } from '../services/services';
 })
 
 export class LoginComponent {
+  public loginActive = true;
   public mask = [/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/]
   public myHeight: string;
   public toasterconfig: ToasterConfig =
@@ -24,6 +29,16 @@ export class LoginComponent {
       limit: 1,
       positionClass: 'toast-bottom-center',
     });
+
+  public swiperConfig: SwiperConfigInterface = {
+    direction: 'horizontal',
+    slidesPerView: 1,
+    keyboard: true,
+    mousewheel: true,
+    scrollbar: true,
+    navigation: false,
+    pagination: false
+  };
 
   constructor(
     private _loginBackendService: LoginBackendService,
@@ -82,5 +97,13 @@ export class LoginComponent {
       this.myHeight = window.screen.height + 'px';
     }
   }
+
+  public toggleLoginView = () => {
+    console.log('button clicked')
+    this.loginActive = !this.loginActive;
+    this._router.navigate(['/schedule']);
+  }
+
+
 
 }

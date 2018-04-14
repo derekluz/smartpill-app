@@ -1,0 +1,24 @@
+<div class="schedule-content">
+    <mat-toolbar class="xy-central" (click)="redirect()">
+        <div class="schedule-button add-button xy-central">
+            <img src="../../assets/icons/add.svg">
+        </div>
+        <span class="schedule-title">Agendamentos</span>
+    </mat-toolbar>
+
+    <div class="schedule-cards-container">
+        <mat-card *ngFor="let number of numbers">
+            <div class="schedule-button edit-button xy-central">
+                <img src="../../assets/icons/edit.svg">
+            </div>
+            <mat-card-content class="medicine-card-content y-central">
+                <img src="../../assets/icons/schedule-pill.svg">
+                <div class="column">
+                    <label class="medicine-name">Rivotril</label>
+                    <label class="medicine-time">7:30 - 13:30 - 19:30 - 01:30</label>
+                    <label class="medicine-time">4x ao dia</label>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

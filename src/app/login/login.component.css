@@ -8,6 +8,26 @@
     width: 100vw;
     height: 100vh;
 }
+.login-top {
+    height: 35%;
+    width: 100%;
+    justify-content: flex-end;
+}
+.login-middle {
+    height: 8%;
+    width: 100%;
+    justify-content: space-around;
+    display: flex;
+    text-transform: uppercase;
+    align-items: flex-end;
+}
+.login-middle label {
+    margin-bottom: 5px;
+}
+.swiper-container {
+    height: 57%;
+    width: 100%;
+}
 .login-field {
     width: calc(100% - 60px);
     margin: 20px auto;
@@ -17,7 +37,8 @@
     margin: 20px auto;
     background-color: #fc3952;
     border-radius: 5px;
-    font-size: 1.0em;
+    font-size: 1.2em;
+    font-family: 'Oswald', sans-serif;
 }
 .mat-input-element{
     height: 7vh;
