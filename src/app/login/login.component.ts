@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Toast, ToasterContainerComponent, ToasterService, ToasterConfig } from 'angular2-toaster';
 import { UUID } from 'angular2-uuid';
@@ -17,8 +17,6 @@ import {
 })
 
 export class LoginComponent {
-  public loginActive = true;
-  public mask = [/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/]
   public myHeight: string;
   public toasterconfig: ToasterConfig =
     new ToasterConfig({
@@ -40,9 +38,12 @@ export class LoginComponent {
     pagination: false
   };
 
+  public loginForm: any;
+  public signUpForm: FormGroup;
+
   constructor(
+    private _formBuilder: FormBuilder,
     private _loginBackendService: LoginBackendService,
-    private _route: ActivatedRoute,
     private _router: Router,
     private _toasterService: ToasterService,
     private _sessionService: SessionService,
@@ -51,18 +52,21 @@ export class LoginComponent {
     window.onresize = this._setHeight;
     this._setHeight();
     this._sessionService.clearSession();
+    this._prepareForms();
   }
 
-  doLogin(f: NgForm): void {
-    if (!f.valid) {
+  public doLogin(): void {
+    if (!this.loginForm.valid) {
       this._badLoginToast();
+      this.loginForm.reset();
     }
     else {
-      // this._loginBackendService.doLogin(f.value)
+      console.log('UHUUUUUL')
+      // this._loginBackendService.doLogin(form.value)
       //   .subscribe(
       //     result => {
       //       this._push.requestPermitionLocalNotification();
-      //       result.healthuser.password = f.value.password;
+      //       result.healthuser.password = form.value.password;
       //       const sessionDate = new Date();
       //       const sessionId = UUID.UUID();
       //       const accessToken = result.accessToken;
@@ -86,6 +90,17 @@ export class LoginComponent {
     }
   }
 
+  public doSignUp = () => {
+    if (!this.signUpForm.valid) {
+      this._badLoginToast();
+      this.signUpForm.reset();
+      this._router.navigate(['/schedule']);
+    }
+    else {
+      this._router.navigate(['/schedule']);
+    }
+  }
+
   private _badLoginToast() {
     this._toasterService.pop('error', '', 'Usuário ou senha inválidos');
   }
@@ -98,12 +113,31 @@ export class LoginComponent {
     }
   }
 
-  public toggleLoginView = () => {
-    console.log('button clicked')
-    this.loginActive = !this.loginActive;
-    this._router.navigate(['/schedule']);
+  private _prepareForms = () => {
+    const emailControl = ['', [
+      Validators.required,
+      Validators.pattern('[^ @]*@[^ @]*')]
+    ];
+    const passwordControl = ['', [
+      Validators.required,
+      Validators.minLength(6),
+      Validators.maxLength(20)]
+    ];
+
+    this.loginForm = this._formBuilder.group({
+      'email': emailControl,
+      'password': passwordControl
+    });
+
+    this.signUpForm = this._formBuilder.group({
+      'email': emailControl,
+      'password': passwordControl,
+      'confirmPassword': passwordControl
+    }, { validators: this._passwordMatchValidator });
   }
 
-
+  private _passwordMatchValidator = (form: FormGroup) => {
+    return form.get('password').value === form.get('confirmPassword').value ? null : { 'mismatch': true };
+  }
 
 }

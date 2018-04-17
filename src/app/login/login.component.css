@@ -34,7 +34,7 @@
 }
 .login-button {
     width: calc(100% - 60px);
-    margin: 20px auto;
+    margin: 30px auto;
     background-color: #fc3952;
     border-radius: 5px;
     font-size: 1.2em;

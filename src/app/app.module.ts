@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { CookieModule, CookieService, CookieOptions } from 'ngx-cookie';
@@ -27,7 +27,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
 const SwiperProvider = {
   provide: SWIPER_CONFIG,
   useValue: DEFAULT_SWIPER_CONFIG
-}
+};
 
 import {
   MatAutocompleteModule,
@@ -105,6 +105,7 @@ import {
     MatNativeDateModule,
     TextMaskModule,
     ToasterModule,
+    ReactiveFormsModule,
     SwiperModule
   ],
   providers: [
