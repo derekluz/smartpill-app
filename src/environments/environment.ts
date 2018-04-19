@@ -5,6 +5,5 @@
 
 export const environment = {
   production: false,
-  smartpillApiUrl: 'x',
-  smartpillApiVersion: 'v1'
+  smartpillApiUrl: 'http://localhost:3000'
 };

@@ -1,8 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { NgForm, FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { Toast, ToasterContainerComponent, ToasterService, ToasterConfig } from 'angular2-toaster';
-import { UUID } from 'angular2-uuid';
 import { LoginBackendService } from './login-backend.service';
 import { PushNotificationService, SessionService } from '../services/services';
 import {
@@ -49,6 +48,9 @@ export class LoginComponent {
     private _sessionService: SessionService,
     private _push: PushNotificationService
   ) {
+    if (this._sessionService.getSession()) {
+      this._router.navigate(['/schedule']);
+    }
     window.onresize = this._setHeight;
     this._setHeight();
     this._sessionService.clearSession();
@@ -59,35 +61,16 @@ export class LoginComponent {
     if (!this.loginForm.valid) {
       this._badLoginToast();
       this.loginForm.reset();
+      return;
     }
-    else {
-      console.log('UHUUUUUL')
-      // this._loginBackendService.doLogin(form.value)
-      //   .subscribe(
-      //     result => {
-      //       this._push.requestPermitionLocalNotification();
-      //       result.healthuser.password = form.value.password;
-      //       const sessionDate = new Date();
-      //       const sessionId = UUID.UUID();
-      //       const accessToken = result.accessToken;
-      //       this._sessionService.setSession(result.healthuser, sessionDate, sessionId, accessToken);
-      //       this._router.navigate(['/main', {
-      //         outlets: {
-      //           'main': ['dashboard']
-      //         }
-      //       }]);
-
-      //       let request: any = { action: 'login', healthuserId: result.healthuser.healthuserId };
-      //       // this._loginBackendService.auditLogin(request)
-      //       //   .subscribe(
-      //       //     result => {
-      //       //       return result;
-      //       //     });
-      //     },
-      //     error => {
-      //       this._badLoginToast();
-      //     });
-    }
+    this._loginBackendService.doLogin(this.loginForm.value)
+      .subscribe(
+        user => {
+          this._push.requestPermitionLocalNotification();
+          this._sessionService.setSession(user);
+          this._router.navigate(['/schedule']);
+          },
+        error => this._badLoginToast());
   }
 
   public doSignUp = () => {
@@ -95,8 +78,7 @@ export class LoginComponent {
       this._badLoginToast();
       this.signUpForm.reset();
       this._router.navigate(['/schedule']);
-    }
-    else {
+    } else {
       this._router.navigate(['/schedule']);
     }
   }

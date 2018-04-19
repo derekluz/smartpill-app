@@ -11,11 +11,11 @@ import 'rxjs/add/operator/do';
 
 @Injectable()
 export class ScheduleBackendService {
-  private _stormwindApi: string;
+  private _smartpillApiUrl: string;
   constructor(
     private _http: Http
   ) {
-    this._stormwindApi = environment.smartpillApiUrl + environment.smartpillApiVersion;
+    this._smartpillApiUrl = environment.smartpillApiUrl;
   }
 
   private _serverError = (err: any) => {

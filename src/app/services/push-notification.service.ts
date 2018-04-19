@@ -8,29 +8,26 @@ export class PushNotificationService {
     requestPermitionLocalNotification = () => {
         if (this._push.isSupported()) {
             this._push.requestPermission();
-        }
-        else {
-            alert("Your browser does not support push notifications");
-            console.error("Your browser does not support push notifications");
+        } else {
+            alert('Your browser does not support push notifications');
+            console.error('Your browser does not support push notifications');
         }
     }
 
     sendLocalNotification(noti: any) {
         if (this._push.isSupported()) {
-            if (this._push.permission === "granted") {
+            if (this._push.permission === 'granted') {
                 navigator.serviceWorker.getRegistration()
                     .then((reg) => {
                         reg.showNotification(noti.title, noti);
                     })
                     .catch((err) => console.log(err));
-            }
-            else {
+            } else {
                 this._push.requestPermission();
             }
-        }
-        else {
-            alert("Your browser does not support push notifications");
-            console.error("Your browser does not support push notifications");
+        } else {
+            alert('Your browser does not support push notifications');
+            console.error('Your browser does not support push notifications');
         }
     }
 }
