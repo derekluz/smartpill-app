@@ -13,19 +13,19 @@ export class SessionService {
 
     constructor(private _cookieService: CookieService) { }
 
-    public clearSession = () => {
-        this._cookieService.putObject('session', {});
+    public clearUser = () => {
+        this._cookieService.putObject('user', undefined);
     }
 
-    public setSession = (user: User) => {
-        this._cookieService.putObject('session', user);
+    public setUser = (user: User) => {
+        this._cookieService.putObject('user', user);
     }
 
-    public getSession = (): User => {
-        const cookieSession = this._cookieService.getObject('session');
+    public getUser = (): User => {
+        const cookieSession = this._cookieService.getObject('user');
         if (cookieSession) {
-            const session = Object.assign(new User, this._cookieService.getObject('session'));
-            return session;
+            const user = Object.assign(new User, this._cookieService.getObject('user'));
+            return user;
         }
         return undefined;
     }

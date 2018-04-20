@@ -10,7 +10,9 @@ import 'rxjs/add/operator/do';
 
 @Injectable()
 export class LoginBackendService {
+
   private _smartpillApiUrl: string;
+
   constructor(
     private _http: Http
   ) {
@@ -28,6 +30,9 @@ export class LoginBackendService {
   public doLogin = (userCredentials): Observable<any> => {
     const endpoint = `${this._smartpillApiUrl}/login/`;
     return this._http.post(endpoint, userCredentials)
+      .map( (data: any) => {
+        return data.json();
+      })
       .do(data => console.log('[SharedDataService.doLogin] server data: ', data))
       .catch(err => this._serverError(err, 'doLogin'));
   }

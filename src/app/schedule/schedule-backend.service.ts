@@ -1,8 +1,7 @@
-import { Observable } from "rxjs/Observable";
-import { Injectable, Inject } from '@angular/core';
-import { Http, Headers, URLSearchParams, RequestOptions } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
 import { environment } from '../../environments/environment';
-import { UUID } from 'angular2-uuid';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -18,12 +17,19 @@ export class ScheduleBackendService {
     this._smartpillApiUrl = environment.smartpillApiUrl;
   }
 
-  private _serverError = (err: any) => {
-    console.log('doLogin error:', err);
+  private _serverError = (err: any, functionName: string) => {
+    console.error('[SharedDataService.' + functionName + '] error:', err);
     if (err instanceof Response) {
       return Observable.throw(err.text() || 'backend server error');
     }
     return Observable.throw(err || 'backend server error');
   }
 
+
+  public updateSchedule = (user, userId): Observable<any> => {
+    const endpoint = `${this._smartpillApiUrl}/users/${userId}`;
+    return this._http.put(endpoint, user)
+      .do(data => console.log('[SharedDataService.updateSchedule] server data: ', data))
+      .catch(err => this._serverError(err, 'updateSchedule'));
+  }
 }

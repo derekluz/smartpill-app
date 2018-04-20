@@ -10,7 +10,7 @@ import {
 } from 'ngx-swiper-wrapper';
 
 @Component({
-  selector: 'login',
+  selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
@@ -45,15 +45,15 @@ export class LoginComponent {
     private _loginBackendService: LoginBackendService,
     private _router: Router,
     private _toasterService: ToasterService,
-    private _sessionService: SessionService,
+    private _session: SessionService,
     private _push: PushNotificationService
   ) {
-    if (this._sessionService.getSession()) {
+    if (this._session.getUser()) {
       this._router.navigate(['/schedule']);
     }
     window.onresize = this._setHeight;
     this._setHeight();
-    this._sessionService.clearSession();
+    this._session.clearUser();
     this._prepareForms();
   }
 
@@ -67,7 +67,7 @@ export class LoginComponent {
       .subscribe(
         user => {
           this._push.requestPermitionLocalNotification();
-          this._sessionService.setSession(user);
+          this._session.setUser(user);
           this._router.navigate(['/schedule']);
           },
         error => this._badLoginToast());

@@ -1,5 +1,5 @@
 <div class="schedule-content">
-    <mat-toolbar class="xy-central" (click)="redirect()">
+    <mat-toolbar class="xy-central" (click)="addMedicine()">
         <div class="schedule-button add-button xy-central">
             <img src="../../assets/icons/add.svg">
         </div>
@@ -7,16 +7,36 @@
     </mat-toolbar>
 
     <div class="schedule-cards-container">
-        <mat-card *ngFor="let number of numbers">
+        <mat-card *ngIf="newMedicine">
             <div class="schedule-button edit-button xy-central">
                 <img src="../../assets/icons/edit.svg">
             </div>
             <mat-card-content class="medicine-card-content y-central">
                 <img src="../../assets/icons/schedule-pill.svg">
                 <div class="column">
-                    <label class="medicine-name">Rivotril</label>
-                    <label class="medicine-time">7:30 - 13:30 - 19:30 - 01:30</label>
-                    <label class="medicine-time">4x ao dia</label>
+                    <label class="medicine-name">{{ medicine.medicine_name }}</label>
+                    <label class="medicine-time">
+                        <span *ngFor="let time of calculateTimes(medicine)">{{ time }} </span>
+                    </label>
+                    <label class="medicine-time">{{ medicine.dosage }} comprimidos</label>
+                    <!-- <label class="medicine-time">{{ medicine.day_frequence }} x ao dia</label> -->
+                    <label class="medicine-time">Mais 4 dias</label>
+                </div>
+            </mat-card-content>
+        </mat-card>
+        <mat-card *ngFor="let medicine of user.schedule">
+            <div class="schedule-button edit-button xy-central">
+                <img src="../../assets/icons/edit.svg">
+            </div>
+            <mat-card-content class="medicine-card-content y-central">
+                <img src="../../assets/icons/schedule-pill.svg">
+                <div class="column">
+                    <label class="medicine-name">{{ medicine.medicine_name }}</label>
+                    <label class="medicine-time">
+                        <span *ngFor="let time of calculateTimes(medicine)">{{ time }} </span>
+                    </label>
+                    <label class="medicine-time">{{ medicine.dosage }} comprimidos</label>
+                    <!-- <label class="medicine-time">{{ medicine.day_frequence }} x ao dia</label> -->
                     <label class="medicine-time">Mais 4 dias</label>
                 </div>
             </mat-card-content>
