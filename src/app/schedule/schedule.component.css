@@ -59,3 +59,10 @@ mat-card {
     color: #2980b9;
     font-size: 1em;
 }
+.container-number {
+    font-size: 3em;
+    color: #2c3e50;
+    position: absolute;
+    right: 10px;
+    bottom: 0;
+}
