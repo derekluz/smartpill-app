@@ -6,7 +6,29 @@
         <span class="schedule-title">Agendamentos</span>
     </mat-toolbar>
 
-    <div class="schedule-cards-container">
+    <div class="schedule-cards-container" [dragula]='"bag-items"' [dragulaModel]='user.schedule'>
+        <mat-card *ngFor="let medicine of user.schedule; let index = index">
+            <div class="schedule-button edit-button xy-central">
+                <img src="../../assets/icons/edit.svg">
+            </div>
+            <mat-card-content class="medicine-card-content y-central">
+                <div class="pill-icon-container column">
+                    <div class="triangle"></div>
+                    <label class="container-number xy-central">{{ index + 1 }}</label>
+                    <img src="../../assets/icons/schedule-pill.svg">
+                </div>
+
+                <div class="column">
+                    <label class="medicine-name">{{ medicine.medicine_name }}</label>
+                    <label class="medicine-time">
+                        <span *ngFor="let time of calculateTimes(medicine)">{{ time }} </span>
+                    </label>
+                    <label class="medicine-time">{{ medicine.dosage }} {{ medicine.dosage === 1 ? 'comprimido' : 'comprimidos' }}</label>
+                </div>
+
+            </mat-card-content>
+        </mat-card>
+
         <mat-card *ngIf="newMedicine">
             <div class="schedule-button edit-button xy-central">
                 <img src="../../assets/icons/edit.svg">
@@ -19,30 +41,8 @@
                         <span *ngFor="let time of calculateTimes(medicine)">{{ time }} </span>
                     </label>
                     <label class="medicine-time">{{ medicine.dosage }} comprimidos</label>
-                    <!-- <label class="medicine-time">{{ medicine.day_frequence }} x ao dia</label> -->
-                    <label class="medicine-time">Mais 4 dias</label>
                 </div>
             </mat-card-content>
         </mat-card>
-        <mat-card *ngFor="let medicine of user.schedule">
-            <div class="schedule-button edit-button xy-central">
-                <img src="../../assets/icons/edit.svg">
-            </div>
-            <mat-card-content class="medicine-card-content y-central">
-                <img src="../../assets/icons/schedule-pill.svg">
-                <div class="column">
-                    <label class="medicine-name">{{ medicine.medicine_name }}</label>
-                    <label class="medicine-time">
-                        <span *ngFor="let time of calculateTimes(medicine)">{{ time }} </span>
-                    </label>
-                    <label class="medicine-time">{{ medicine.dosage }} comprimidos</label>
-                    <!-- <label class="medicine-time">{{ medicine.day_frequence }} x ao dia</label> -->
-                    <label class="medicine-time">Mais 4 dias</label>
-                </div>
-                <div class="column">
-                    <label class="container-number">2</label>
-                </div>
-            </mat-card-content>
-        </mat-card>
-        </div>
     </div>
+</div>

@@ -1,18 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { Toast, ToasterContainerComponent, ToasterService, ToasterConfig } from 'angular2-toaster';
 import { ScheduleBackendService } from './schedule-backend.service';
 import { PushNotificationService, SessionService } from '../services/services';
+import { User } from '../models/user.model';
+
 
 @Component({
     selector: 'app-schedule',
     templateUrl: './schedule.component.html',
     styleUrls: ['./schedule.component.css']
 })
-
-export class ScheduleComponent {
-    public user = {};
+export class ScheduleComponent implements OnInit {
+    public user: User;
     public newMedicine = false;
     public toasterconfig: ToasterConfig =
         new ToasterConfig({
@@ -25,8 +27,9 @@ export class ScheduleComponent {
         });
 
     constructor(
-        private _scheduleBackendService: ScheduleBackendService,
+        private _dragula: DragulaService,
         private _router: Router,
+        private _scheduleBackendService: ScheduleBackendService,
         private _session: SessionService
     ) {
         this.user = this._session.getUser();
@@ -34,6 +37,18 @@ export class ScheduleComponent {
             this.logout();
         }
         console.log(this.user);
+        this._dragula.setOptions('bag-items', {
+            revertOnSpill: false
+        });
+    }
+
+    ngOnInit() {
+        this._dragula
+            .out
+            .subscribe(value => {
+                console.log(this.user.schedule);
+                this._scheduleBackendService.updateSchedule(this.user, this.user._id);
+            });
     }
 
     public logout = () => {
@@ -43,7 +58,7 @@ export class ScheduleComponent {
 
     public calculateTimes = (medicine) => {
         const timeSplit = medicine.start_time.split(':');
-        const startHour = timeSplit[0];
+        const startHour = +(timeSplit[0]);
         const minute = timeSplit[1];
         const hourArray = [];
         const hourDifference = Math.round(24 / medicine.day_frequence);
@@ -59,7 +74,6 @@ export class ScheduleComponent {
     public addMedicine = () => {
         this.newMedicine = true;
     }
-
 
 
 }

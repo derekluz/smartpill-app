@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import { environment } from '../../environments/environment';
 
 import 'rxjs/add/operator/map';
@@ -28,7 +28,11 @@ export class ScheduleBackendService {
 
   public updateSchedule = (user, userId): Observable<any> => {
     const endpoint = `${this._smartpillApiUrl}/users/${userId}`;
-    return this._http.put(endpoint, user)
+    const request = JSON.stringify(user);
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json; charset=utf-8');
+    const options: RequestOptions = new RequestOptions({ headers: headers });
+    return this._http.put(endpoint, request, options)
       .do(data => console.log('[SharedDataService.updateSchedule] server data: ', data))
       .catch(err => this._serverError(err, 'updateSchedule'));
   }

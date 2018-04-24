@@ -10,6 +10,7 @@ import { PushNotificationsService, PushNotification } from 'angular2-notificatio
 import { TextMaskModule } from 'angular2-text-mask';
 import { ToasterModule, ToasterService } from 'angular2-toaster';
 import { SwiperModule, SwiperConfigInterface, SWIPER_CONFIG } from 'ngx-swiper-wrapper';
+import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -70,6 +71,7 @@ import {
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
+    DragulaModule,
     NoopAnimationsModule,
     CookieModule.forRoot(),
     FormsModule,

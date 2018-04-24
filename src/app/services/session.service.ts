@@ -1,12 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie';
-
-export class User {
-    userId: string;
-    email: string;
-    password: string;
-    schedule: Object;
-}
+import { User, UserObject } from '../models/user.model';
 
 @Injectable()
 export class SessionService {
@@ -24,7 +18,7 @@ export class SessionService {
     public getUser = (): User => {
         const cookieSession = this._cookieService.getObject('user');
         if (cookieSession) {
-            const user = Object.assign(new User, this._cookieService.getObject('user'));
+            const user = Object.assign(new UserObject, this._cookieService.getObject('user'));
             return user;
         }
         return undefined;
