@@ -28,11 +28,7 @@ export class ScheduleBackendService {
 
   public updateSchedule = (user, userId): Observable<any> => {
     const endpoint = `${this._smartpillApiUrl}/users/${userId}`;
-    const request = JSON.stringify(user);
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json; charset=utf-8');
-    const options: RequestOptions = new RequestOptions({ headers: headers });
-    return this._http.put(endpoint, request, options)
+    return this._http.put(endpoint, user)
       .do(data => console.log('[SharedDataService.updateSchedule] server data: ', data))
       .catch(err => this._serverError(err, 'updateSchedule'));
   }

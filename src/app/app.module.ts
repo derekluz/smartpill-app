@@ -15,6 +15,7 @@ import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { ScheduleComponent } from './schedule/schedule.component';
+import { ScheduleDialogComponent } from './schedule-dialog/schedule-dialog.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginBackendService } from './login/login-backend.service';
 import { ScheduleBackendService } from './schedule/schedule-backend.service';
@@ -65,8 +66,10 @@ import {
   declarations: [
     AppComponent,
     LoginComponent,
-    ScheduleComponent
+    ScheduleComponent,
+    ScheduleDialogComponent
   ],
+  entryComponents: [ScheduleDialogComponent],
   imports: [
     AppRoutingModule,
     BrowserModule,

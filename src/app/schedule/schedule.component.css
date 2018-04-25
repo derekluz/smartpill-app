@@ -41,7 +41,13 @@ mat-card {
 .edit-button img{
     height: 50%;
 }
+.add-button {
+    left: 10px;
+}
 .add-button img{
+    height: 70%;
+}
+.logout-button img{
     height: 70%;
 }
 .medicine-card-content {
@@ -53,6 +59,7 @@ mat-card {
 .medicine-name {
     color: #e74c3c;
     font-size: 1.2em;
+    width: 90%;
 }
 .medicine-time {
     color: #2980b9;

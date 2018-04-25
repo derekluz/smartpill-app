@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { Toast, ToasterContainerComponent, ToasterService, ToasterConfig } from 'angular2-toaster';
 import { ScheduleBackendService } from './schedule-backend.service';
 import { PushNotificationService, SessionService } from '../services/services';
 import { User } from '../models/user.model';
+import { ScheduleDialogComponent } from '../schedule-dialog/schedule-dialog.component';
 
 
 @Component({
@@ -13,9 +15,10 @@ import { User } from '../models/user.model';
     templateUrl: './schedule.component.html',
     styleUrls: ['./schedule.component.css']
 })
-export class ScheduleComponent implements OnInit {
+export class ScheduleComponent implements OnInit, OnDestroy {
     public user: User;
     public newMedicine = false;
+    public draggerContainerName = 'bag-pills';
     public toasterconfig: ToasterConfig =
         new ToasterConfig({
             showCloseButton: false,
@@ -27,6 +30,7 @@ export class ScheduleComponent implements OnInit {
         });
 
     constructor(
+        private _dialog: MatDialog,
         private _dragula: DragulaService,
         private _router: Router,
         private _scheduleBackendService: ScheduleBackendService,
@@ -37,18 +41,18 @@ export class ScheduleComponent implements OnInit {
             this.logout();
         }
         console.log(this.user);
-        this._dragula.setOptions('bag-items', {
+        this._dragula.setOptions(this.draggerContainerName, {
             revertOnSpill: false
         });
     }
 
     ngOnInit() {
-        this._dragula
-            .out
-            .subscribe(value => {
-                console.log(this.user.schedule);
-                this._scheduleBackendService.updateSchedule(this.user, this.user._id);
-            });
+        this._dragula.out
+            .subscribe(value => this.updateSchedule());
+    }
+
+    ngOnDestroy() {
+        this._dragula.destroy(this.draggerContainerName);
     }
 
     public logout = () => {
@@ -73,7 +77,31 @@ export class ScheduleComponent implements OnInit {
 
     public addMedicine = () => {
         this.newMedicine = true;
+        // const newMedicine = {
+        //     day_frequence: 1,
+        //     dosage: 0,
+        //     medicine_name: '',
+        //     start_time: '00:00'
+        // };
+        // this.user.schedule.push(newMedicine);
     }
+
+    public updateSchedule = () => {
+        console.log(this.user.schedule);
+        this._scheduleBackendService.updateSchedule(this.user, this.user._id)
+            .subscribe(res => {
+                this._session.setUser(this.user);
+            });
+    }
+
+    public openDialog(): void {
+        const dialogRef = this._dialog.open(ScheduleDialogComponent, {
+          data: { name: 'a', animal: 'macaco' }
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+        });
+      }
 
 
 }
