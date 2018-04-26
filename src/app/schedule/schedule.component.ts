@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatDialogConfig } from '@angular/material';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { Toast, ToasterContainerComponent, ToasterService, ToasterConfig } from 'angular2-toaster';
 import { ScheduleBackendService } from './schedule-backend.service';
@@ -95,13 +95,17 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     }
 
     public openDialog(): void {
-        const dialogRef = this._dialog.open(ScheduleDialogComponent, {
-          data: { name: 'a', animal: 'macaco' }
-        });
-        dialogRef.afterClosed().subscribe(result => {
-          console.log('The dialog was closed');
-        });
-      }
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.autoFocus = true;
+        dialogConfig.data = {
+            id: 1,
+            title: 'Angular For Beginners'
+        };
 
+        const dialogRef = this._dialog.open(ScheduleDialogComponent, dialogConfig);
 
+        dialogRef.afterClosed().subscribe(
+            data => console.log('Dialog output:', data)
+        );
+    }
 }
