@@ -281,17 +281,17 @@ button.toast-close-button {
 /* --- End Toaster --- */
 
 /* Dialog */
-.cdk-overlay-container {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(90, 86, 67, 0.4);
-}
-.cdk-global-overlay-wrapper {
-  background-color: white;
+.mat-dialog-container{
+  width: 80% !important;
+  height: 40% !important;
+  position: absolute !important;
+  top: 30% !important;
+  left: 10% !important;
+  margin: auto !important;
+  background: white !important;
+  display: flex !important;
+  align-items: center !important;
+  flex-direction: column !important;
+  border-radius: 15px !important;
 }
 /* End Dialog */

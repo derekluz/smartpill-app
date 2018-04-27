@@ -19,6 +19,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     public user: User;
     public newMedicine = false;
     public draggerContainerName = 'bag-pills';
+    public scheduleBlur = '';
     public toasterconfig: ToasterConfig =
         new ToasterConfig({
             showCloseButton: false,
@@ -74,7 +75,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
             }).sort();
         return timeArray;
     }
-
+ 
     public addMedicine = () => {
         this.newMedicine = true;
         // const newMedicine = {
@@ -101,11 +102,14 @@ export class ScheduleComponent implements OnInit, OnDestroy {
             id: 1,
             title: 'Angular For Beginners'
         };
+        this.scheduleBlur = 'blur(1px)';
 
         const dialogRef = this._dialog.open(ScheduleDialogComponent, dialogConfig);
 
         dialogRef.afterClosed().subscribe(
-            data => console.log('Dialog output:', data)
-        );
+            data => {
+                console.log('Dialog output:', data);
+                this.scheduleBlur = '';
+            });
     }
 }

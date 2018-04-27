@@ -10,13 +10,17 @@
         <mat-form-field>
             <mat-select [(value)]="selected" formControlName="dosage">
                 <mat-option *ngFor="let number of numbers">{{ number }}</mat-option>
-            </mat-select> 
+            </mat-select>
         </mat-form-field>
 
     </mat-dialog-content>
 
     <mat-dialog-actions>
-        <button class="mat-raised-button" (click)="close()">Close</button>
-        <button class="mat-raised-button mat-primary" (click)="save()">Save</button>
+        <div class="dialog-button xy-central cancel-button" (click)="close()">
+            <img src="../../assets/icons/cancel.svg">
+        </div>
+        <div class="dialog-button xy-central ok-button" (click)="save()">
+            <img src="../../assets/icons/checked.svg">
+        </div>
     </mat-dialog-actions>
 </div>

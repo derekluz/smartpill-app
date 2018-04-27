@@ -44,6 +44,6 @@ export class ScheduleDialogComponent implements OnInit {
 
     close() {
         this.dialogRef.close();
-}
+    }
 
 }
