@@ -14,20 +14,16 @@ export class PushNotificationService {
         }
     }
 
-    sendLocalNotification(noti: any) {
-        if (this._push.isSupported()) {
-            if (this._push.permission === 'granted') {
-                navigator.serviceWorker.getRegistration()
-                    .then((reg) => {
-                        reg.showNotification(noti.title, noti);
-                    })
-                    .catch((err) => console.log(err));
-            } else {
-                this._push.requestPermission();
-            }
-        } else {
-            alert('Your browser does not support push notifications');
-            console.error('Your browser does not support push notifications');
-        }
+    sendLocalNotification() {
+        const options = {
+            body: 'Remédio no dispensador',
+            icon: 'assets/icons/medicine.svg',
+            vibrate: [200, 100, 200]
+        };
+        const notify = this._push.create('Atenção!', options)
+            .subscribe(
+                res => console.log(res),
+                err => console.log(err)
+            );
     }
 }

@@ -3,7 +3,7 @@ import { NgForm, FormGroup, FormControl, FormBuilder, Validators } from '@angula
 import { Router } from '@angular/router';
 import { Toast, ToasterContainerComponent, ToasterService, ToasterConfig } from 'angular2-toaster';
 import { LoginBackendService } from './login-backend.service';
-import { PushNotificationService, SessionService } from '../services/services';
+import { PushNotificationService, SessionService, SocketService } from '../services/services';
 import {
   SwiperComponent, SwiperDirective, SwiperConfigInterface,
   SwiperScrollbarInterface, SwiperPaginationInterface

@@ -5,7 +5,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { Toast, ToasterContainerComponent, ToasterService, ToasterConfig } from 'angular2-toaster';
 import { ScheduleBackendService } from './schedule-backend.service';
-import { PushNotificationService, SessionService } from '../services/services';
+import { PushNotificationService, SessionService, SocketService } from '../services/services';
 import { User } from '../models/user.model';
 import { ScheduleDialogComponent } from '../schedule-dialog/schedule-dialog.component';
 
@@ -35,7 +35,8 @@ export class ScheduleComponent implements OnInit, OnDestroy {
         private _dragula: DragulaService,
         private _router: Router,
         private _scheduleBackendService: ScheduleBackendService,
-        private _session: SessionService
+        private _session: SessionService,
+        private _socket: SocketService
     ) {
         this.user = this._session.getUser();
         if (!this.user) {
@@ -45,11 +46,14 @@ export class ScheduleComponent implements OnInit, OnDestroy {
         this._dragula.setOptions(this.draggerContainerName, {
             revertOnSpill: false
         });
+        this._socket.joinRoom(this.user._id);
     }
 
     ngOnInit() {
         this._dragula.out
-            .subscribe(value => this.updateSchedule());
+            .subscribe(value => {
+                this.updateSchedule();
+            });
     }
 
     ngOnDestroy() {
@@ -75,7 +79,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
             }).sort();
         return timeArray;
     }
- 
+
     public addMedicine = () => {
         this.newMedicine = true;
         // const newMedicine = {

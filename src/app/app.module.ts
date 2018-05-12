@@ -6,11 +6,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { CookieModule, CookieService, CookieOptions } from 'ngx-cookie';
-import { PushNotificationsService, PushNotification } from 'angular2-notifications';
+import { PushNotificationsModule } from 'angular2-notifications';
 import { TextMaskModule } from 'angular2-text-mask';
 import { ToasterModule, ToasterService } from 'angular2-toaster';
 import { SwiperModule, SwiperConfigInterface, SWIPER_CONFIG } from 'ngx-swiper-wrapper';
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
+import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -19,11 +20,16 @@ import { ScheduleDialogComponent } from './schedule-dialog/schedule-dialog.compo
 import { AppRoutingModule } from './app-routing.module';
 import { LoginBackendService } from './login/login-backend.service';
 import { ScheduleBackendService } from './schedule/schedule-backend.service';
-import { PushNotificationService, SessionService } from './services/services';
+import { PushNotificationService, SessionService, SocketService } from './services/services';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
   slidesPerView: 'auto'
+};
+
+const socketConfig: SocketIoConfig = {
+  url: 'http://localhost:3000',
+  options: {}
 };
 
 const SwiperProvider = {
@@ -110,16 +116,18 @@ import {
     MatNativeDateModule,
     TextMaskModule,
     ToasterModule,
+    PushNotificationsModule,
     ReactiveFormsModule,
+    SocketIoModule.forRoot(socketConfig),
     SwiperModule
   ],
   providers: [
     CookieService,
     LoginBackendService,
     PushNotificationService,
-    PushNotificationsService,
     ScheduleBackendService,
     SessionService,
+    SocketService,
     SwiperProvider,
     ToasterService
   ],
