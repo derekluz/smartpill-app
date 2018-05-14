@@ -17,7 +17,7 @@ export class PushNotificationService {
     sendLocalNotification() {
         const options = {
             body: 'Remédio no dispensador',
-            icon: 'assets/icons/medicine.svg',
+            icon: 'assets/icons/pill.png',
             vibrate: [200, 100, 200]
         };
         const notify = this._push.create('Atenção!', options)
