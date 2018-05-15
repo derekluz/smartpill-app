@@ -283,7 +283,7 @@ button.toast-close-button {
 /* Dialog */
 .mat-dialog-container{
   width: 80% !important;
-  height: 40% !important;
+  height: 50% !important;
   position: absolute !important;
   top: 30% !important;
   left: 10% !important;
@@ -293,5 +293,18 @@ button.toast-close-button {
   align-items: center !important;
   flex-direction: column !important;
   border-radius: 15px !important;
+  justify-content: space-between !important;
+}
+.mat-dialog-actions {
+  margin-top: 20px;
 }
 /* End Dialog */
+
+/* Input fields */
+textarea:focus, input:focus{
+  outline: none;
+}
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+  background-color: transparent !important;
+}
+/* End Input fields */

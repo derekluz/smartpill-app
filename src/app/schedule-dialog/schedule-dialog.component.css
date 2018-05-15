@@ -1,3 +1,6 @@
+.dialog-title {
+    color: #2980b9;
+}
 .dialog-button {
     height: 50px;
     width: 40%;
@@ -13,4 +16,33 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+.mat-dialog-title {
+    margin: 0px 0 5px;
+}
+.mat-dialog-actions {
+    margin-top: 5px;
+}
+.schedule-input-wrapper {
+    height: 40px;
+    justify-content: flex-start;
+}
+.schedule-input-label {
+    width: 70px;
+    margin-right: 5px;
+    text-align: start;
+    color: #34495e;
+}
+.schedule-input {
+    font-family: 'Oswald', sans-serif;
+    background: transparent;
+    border-top: transparent !important;
+    border-left: transparent !important;
+    border-right: transparent !important;
+    border-bottom: 1px solid #34495e !important;
+    font-weight: 200;
+    padding-left: 0;
+    height: 30px;
+    font-size: 1.0em;
+    color: #2c3e50;
 }

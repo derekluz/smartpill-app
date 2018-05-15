@@ -80,17 +80,6 @@ export class ScheduleComponent implements OnInit, OnDestroy {
         return timeArray;
     }
 
-    public addMedicine = () => {
-        this.newMedicine = true;
-        // const newMedicine = {
-        //     day_frequence: 1,
-        //     dosage: 0,
-        //     medicine_name: '',
-        //     start_time: '00:00'
-        // };
-        // this.user.schedule.push(newMedicine);
-    }
-
     public updateSchedule = () => {
         console.log(this.user.schedule);
         this._scheduleBackendService.updateSchedule(this.user, this.user._id)
@@ -99,12 +88,12 @@ export class ScheduleComponent implements OnInit, OnDestroy {
             });
     }
 
-    public openDialog(): void {
+    public openDialog(medicine?, arrayPosition?): void {
         const dialogConfig = new MatDialogConfig();
         dialogConfig.autoFocus = true;
         dialogConfig.data = {
-            id: 1,
-            title: 'Angular For Beginners'
+            medicine: medicine,
+            arrayPosition: arrayPosition
         };
         this.scheduleBlur = 'blur(1px)';
 
@@ -113,6 +102,14 @@ export class ScheduleComponent implements OnInit, OnDestroy {
         dialogRef.afterClosed().subscribe(
             data => {
                 console.log('Dialog output:', data);
+                if (data) {
+                    if (data.isNewMedicine) {
+                        this.user.schedule.push(data.medicine);
+                    } else {
+                        this.user.schedule[data.arrayPosition] = data.medicine;
+                    }
+                    this.updateSchedule();
+                }
                 this.scheduleBlur = '';
             });
     }

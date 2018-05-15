@@ -11,7 +11,7 @@
 
     <div class="schedule-cards-container" [dragula]='draggerContainerName' [dragulaModel]='user.schedule'>
         <mat-card *ngFor="let medicine of user.schedule; let index = index">
-            <div class="schedule-button edit-button xy-central">
+            <div class="schedule-button edit-button xy-central" (click)="openDialog(medicine, index)">
                 <img src="../../assets/icons/edit.svg">
             </div>
             <mat-card-content class="medicine-card-content y-central">

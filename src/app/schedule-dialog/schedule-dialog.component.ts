@@ -8,38 +8,41 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
     styleUrls: ['schedule-dialog.component.css'],
 })
 export class ScheduleDialogComponent implements OnInit {
-
-    form: FormGroup;
-    description: string;
-    newMedicine: {
-        day_frequence: 0,
-        dosage: 0,
-        duration_in_days: 0,
-        start_time: '00:00'
-    };
-    numbers = Array.from(Array(5).keys());
-
+    public form: FormGroup;
+    public timeMask = [/[0-2]/, /\d/, ':', /[0-5]/, /\d/];
+    public medicine;
+    public isNewMedicine: boolean;
+    public arrayPosition;
+    public newMedicine = {};
 
     constructor(
         private _formBuilder: FormBuilder,
         private dialogRef: MatDialogRef<ScheduleDialogComponent>,
         @Inject(MAT_DIALOG_DATA) data
     ) {
-        this.description = data.description;
+        this.medicine = data.medicine;
+        this.arrayPosition = data.arrayPosition;
     }
 
     ngOnInit() {
+        this.isNewMedicine = this.medicine ? false : true;
+        const formData = this.isNewMedicine ? this.newMedicine : this.medicine;
         this.form = this._formBuilder.group({
-            dayFrequence: 0,
-            dosage: 0,
-            durationInDays: 0,
-            medicineName: ['', Validators.maxLength(20)],
-            startTime: '00:00'
+            day_frequence: formData.day_frequence,
+            dosage: formData.dosage,
+            duration_in_days: formData.duration_in_days,
+            medicine_name: [formData.medicine_name, Validators.maxLength(20)],
+            start_time: formData.start_time
         });
     }
 
     save() {
-        this.dialogRef.close(this.form.value);
+        const data = {
+            medicine: this.form.value,
+            arrayPosition: this.arrayPosition,
+            isNewMedicine: this.isNewMedicine
+        };
+        this.dialogRef.close(data);
     }
 
     close() {

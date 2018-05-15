@@ -1,18 +1,23 @@
 <div class="dialog-background">
-    <h2 mat-dialog-title>Adicione um medicamento</h2>
+    <h2 class="dialog-title" mat-dialog-title>Adicione um medicamento</h2>
 
     <mat-dialog-content [formGroup]="form">
-
-        <mat-form-field>
-            <input matInput placeholder="Nome do medicamento" formControlName="medicineName">
-        </mat-form-field>
-
-        <mat-form-field>
-            <mat-select [(value)]="selected" formControlName="dosage">
-                <mat-option *ngFor="let number of numbers">{{ number }}</mat-option>
-            </mat-select>
-        </mat-form-field>
-
+        <div class="schedule-input-wrapper y-central">
+            <label class="schedule-input-label">Nome:</label>
+            <input class="schedule-input" matInput formControlName="medicine_name">
+        </div>
+        <div class="schedule-input-wrapper y-central">
+            <label class="schedule-input-label">Hórario:</label>
+            <input type="tel" class="schedule-input" matInput [textMask]="{mask:timeMask, guide:false}" formControlName="start_time">
+        </div>
+        <div class="schedule-input-wrapper y-central">
+            <label class="schedule-input-label">Dosagem:</label>
+            <input type="number" class="schedule-input" matInput formControlName="dosage">
+        </div>
+        <div class="schedule-input-wrapper y-central">
+            <label class="schedule-input-label">Vezes/dia:</label>
+            <input type="number" class="schedule-input" matInput formControlName="day_frequence">
+        </div>
     </mat-dialog-content>
 
     <mat-dialog-actions>
