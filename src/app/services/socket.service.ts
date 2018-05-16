@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ng-socket-io';
 import { PushNotificationService } from './push-notification.service';
+import { SessionService } from './session.service';
 
 @Injectable()
 export class SocketService {
@@ -10,6 +11,7 @@ export class SocketService {
     };
 
     constructor(
+        private _session: SessionService,
         private _socket: Socket,
         private _push: PushNotificationService
     ) {
@@ -18,6 +20,14 @@ export class SocketService {
                 this._push.sendLocalNotification();
                 console.log('ALERTA! Remédio no dispenser.');
             });
+        this._socket.on('connect', () => {
+            console.log('connected to server');
+            const user = this._session.getUser();
+            if (user) {
+                this.joinRoom(user._id);
+            }
+
+        });
     }
 
     public joinRoom = (userId) => {
