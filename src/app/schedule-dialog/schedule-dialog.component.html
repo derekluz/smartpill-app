@@ -1,5 +1,5 @@
 <div class="dialog-background">
-    <h2 class="dialog-title" mat-dialog-title>Adicione um medicamento</h2>
+    <h2 class="dialog-title" mat-dialog-title>{{ isNewMedicine ? 'Adicione um medicamento' : 'Editar medicamento' }}</h2>
 
     <mat-dialog-content [formGroup]="form">
         <div class="schedule-input-wrapper y-central">
